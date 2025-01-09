@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import { getCssText } from "../stitches.config.ts";
 import "./index.css";
 import App from "./App.tsx";
-import AppContextProvider from "./contexts/app-context/index.tsx";
+import AppContextProvider from "./contexts/app-context";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

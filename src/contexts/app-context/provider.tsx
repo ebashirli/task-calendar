@@ -1,35 +1,9 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-
-type TAppContext = {
-  currYear: number;
-  currMonth: number;
-  currDate: Date | null;
-  selectedIndex: number | null;
-
-  handleSelectMonthYear: (place: 0 | 1 | -1) => void;
-  handleSelectDate: (date?: Date) => void;
-  setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>;
-};
+import { ReactNode, useCallback, useState } from "react";
+import { AppContext, Task } from "./context";
 
 type Props = {
   children: ReactNode;
 };
-
-const AppContext = createContext<TAppContext>({
-  currYear: new Date().getFullYear(),
-  currMonth: new Date().getMonth(),
-  currDate: null,
-  selectedIndex: null,
-  handleSelectMonthYear: () => {},
-  handleSelectDate: () => {},
-  setSelectedIndex: () => {},
-});
 
 export default function AppContextProvider({ children }: Props) {
   const [selectedMonthYear, setSelectedMonthYear] = useState(new Date());
@@ -37,6 +11,14 @@ export default function AppContextProvider({ children }: Props) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const currYear = selectedMonthYear.getFullYear();
   const currMonth = selectedMonthYear.getMonth();
+  const [tasks, setTasks] = useState<Task[]>([
+    { id: "1", title: "Task 01", date: "01-01-2025" },
+    { id: "2", title: "Task 02", date: "01-02-2025" },
+    { id: "3", title: "Task 03", date: "01-03-2025" },
+    { id: "4", title: "Task 04", date: "01-04-2025" },
+    { id: "5", title: "Task 05", date: "01-05-2025" },
+    { id: "6", title: "Task 06", date: "01-06-2025" },
+  ]);
 
   const handleSelectMonthYear = useCallback((place: 0 | 1 | -1) => {
     setSelectedMonthYear((prev) => {
@@ -59,19 +41,15 @@ export default function AppContextProvider({ children }: Props) {
         currMonth,
         currDate,
         selectedIndex,
+        tasks,
 
         handleSelectMonthYear,
         handleSelectDate,
         setSelectedIndex,
+        setTasks,
       }}
     >
       {children}
     </AppContext.Provider>
   );
 }
-
-export const useAppContext = () => {
-  const context = useContext(AppContext);
-  if (!context) throw new Error("out of context");
-  return context;
-};

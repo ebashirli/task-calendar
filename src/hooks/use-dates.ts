@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { useAppContext } from "../contexts/app-context";
 import { monthsObj } from "../utils/constants";
 
@@ -12,7 +13,7 @@ export type DateDetail = {
   place: -1 | 0 | 1;
 };
 
-export function useDatesOfMonth() {
+export function useDates() {
   const { currMonth, currYear } = useAppContext();
   const firstDayOfMonth = new Date(currYear, currMonth, 0).getDay() + 1;
   const lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate();
@@ -32,7 +33,7 @@ export function useDatesOfMonth() {
           ? `${months[month]} ${date}`
           : `${date}`;
 
-      const id = `${label}-${date}-${month}-${year}`;
+      const id = format(new Date(year, month, date), "Md-dd-yyyy");
       return { id, label, date, month, year, place: -1 } as DateDetail;
     }),
     ...Array.from({ length: lastDateOfMonth }).map((_, i) => {
@@ -43,8 +44,8 @@ export function useDatesOfMonth() {
         date === 1 || date === lastDateOfMonth
           ? `${months[month]} ${date}`
           : `${date}`;
-      const id = `${label}-${date}-${month}-${year}`;
 
+      const id = format(new Date(year, month, date), "MM-dd-yyyy");
       return { id, label, date, month, year, place: 0 } as DateDetail;
     }),
     ...Array.from({ length: 6 - lastDayOfMonth }).map((_, i) => {
@@ -52,8 +53,7 @@ export function useDatesOfMonth() {
       const month = currMonth === 11 ? 0 : currMonth + 1;
       const year = currMonth === 11 ? currYear + 1 : currMonth;
       const label = date === 1 ? `${months[month]} ${date}` : `${date}`;
-      const id = `${label}-${date}-${month}-${year}`;
-
+      const id = format(new Date(year, month, date), "MM-dd-yyyy");
       return { id, label, date, month, year, place: 1 } as DateDetail;
     }),
   ];

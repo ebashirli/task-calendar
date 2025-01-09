@@ -7,8 +7,8 @@ import {
   Wrapper,
 } from "./components/styles";
 import { Navbar } from "./components/navbar";
-import DaysOfWeek from "./components/days-of-week";
-import DatesOfMonth from "./components/dates-of-month";
+import DaysOfWeek from "./components/week";
+import DatesOfMonth from "./components/dates";
 import CurrentDate from "./components/current-date";
 import { useAppContext } from "./contexts/app-context";
 
