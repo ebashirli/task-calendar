@@ -4,6 +4,7 @@ import { useDates } from "../hooks/use-dates";
 import Date from "./date";
 import { useAppContext } from "../contexts/app-context";
 import { Task } from "../contexts/app-context/context";
+import { arrayMove } from "@dnd-kit/sortable";
 
 const StyledDates = styled("div", {
   display: "grid",
@@ -18,19 +19,30 @@ function Dates() {
   const { tasks, setTasks } = useAppContext();
 
   function handleDragEnd({ active, over }: DragEndEvent) {
+    console.log({ active, over });
+
     if (!over) return;
     const taskId = active.id as string;
     const newDate = over.id as Task["date"];
-    setTasks((tasks) =>
-      tasks.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              date: newDate,
-            }
-          : task
-      )
-    );
+    const curentDate = over.data.current?.date;
+
+    if (curentDate) {
+      if (active.id === over.id) return;
+      const overId = over.id as string;
+      return setTasks((tasks) => {
+        const ids = tasks.map(({ id }) => id);
+        const oldIndex = ids.indexOf(taskId);
+        const newIndex = ids.indexOf(overId);
+
+        return arrayMove(tasks, oldIndex, newIndex);
+      });
+    }
+
+    // setTasks((tasks) =>
+    //   tasks.map((task) =>
+    //     task.id === taskId ? { ...task, date: newDate } : task
+    //   )
+    // );
   }
 
   return (
@@ -41,11 +53,7 @@ function Dates() {
             key={dateDetail.id}
             index={i}
             dateDetail={dateDetail}
-            tasks={tasks.filter(({ date }) => {
-              console.log({ date, dateDetail: dateDetail.id });
-
-              return date === dateDetail.id;
-            })}
+            tasks={tasks.filter(({ date }) => date === dateDetail.id)}
           />
         ))}
       </DndContext>

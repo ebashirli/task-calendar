@@ -33,7 +33,7 @@ export function useDates() {
           ? `${months[month]} ${date}`
           : `${date}`;
 
-      const id = format(new Date(year, month, date), "Md-dd-yyyy");
+      const id = format(new Date(year, month, date), "MM-dd-yyyy");
       return { id, label, date, month, year, place: -1 } as DateDetail;
     }),
     ...Array.from({ length: lastDateOfMonth }).map((_, i) => {

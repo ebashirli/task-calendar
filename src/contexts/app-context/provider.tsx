@@ -13,7 +13,8 @@ export default function AppContextProvider({ children }: Props) {
   const currMonth = selectedMonthYear.getMonth();
   const [tasks, setTasks] = useState<Task[]>([
     { id: "1", title: "Task 01", date: "01-01-2025" },
-    { id: "2", title: "Task 02", date: "01-02-2025" },
+    { id: "7", title: "Task 07", date: "01-01-2025" },
+    { id: "8", title: "Task 08", date: "01-01-2025" },
     { id: "3", title: "Task 03", date: "01-03-2025" },
     { id: "4", title: "Task 04", date: "01-04-2025" },
     { id: "5", title: "Task 05", date: "01-05-2025" },
