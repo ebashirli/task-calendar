@@ -13,6 +13,8 @@ function CalendarWeek({ days }: Props) {
   return (
     <StyledCalendarWeek>
       {days.map((day) => {
+        console.log({ day });
+
         return <CalendarDay key={day} day={day} />;
       })}
     </StyledCalendarWeek>

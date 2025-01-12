@@ -4,6 +4,7 @@ export type Task = {
   id: string;
   day: string;
   title: string;
+  noDrag?: boolean;
 };
 
 type TCalendarContext = {
@@ -13,13 +14,15 @@ type TCalendarContext = {
   selectedDate: string | null;
   tasks: Task[];
   isFormOpen: boolean;
+  selectedTask: Task | null;
 
   handleSelectMonthYear: (place: 0 | 1 | -1) => void;
   handleSelectDate: (date?: Date) => void;
+  handleOpenForm: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   setSelectedDate: React.Dispatch<React.SetStateAction<string | null>>;
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
   setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  handleOpenForm: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  setSelectedTask: React.Dispatch<React.SetStateAction<Task | null>>;
 };
 
 export const CalendarContext = createContext<TCalendarContext>({
@@ -29,11 +32,13 @@ export const CalendarContext = createContext<TCalendarContext>({
   selectedDate: null,
   tasks: [],
   isFormOpen: false,
+  selectedTask: null,
 
   handleSelectMonthYear: () => {},
   handleSelectDate: () => {},
+  handleOpenForm: () => {},
   setSelectedDate: () => {},
   setTasks: () => {},
   setIsFormOpen: () => {},
-  handleOpenForm: () => {},
+  setSelectedTask: () => {},
 });

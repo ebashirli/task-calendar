@@ -18,10 +18,8 @@ type Props = {
 function DndContextProvider({ children }: Props) {
   const { setTasks } = useCalendarContext();
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
+    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
   return (

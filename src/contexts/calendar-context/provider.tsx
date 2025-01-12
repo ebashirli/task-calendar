@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { CalendarContext, Task } from "./context";
 
@@ -12,6 +13,7 @@ export default function CalendarContextProvider({ children }: Props) {
   const currYear = selectedMonthYear.getFullYear();
   const currMonth = selectedMonthYear.getMonth();
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const handleSelectMonthYear = useCallback((place: 0 | 1 | -1) => {
@@ -41,8 +43,10 @@ export default function CalendarContextProvider({ children }: Props) {
       const res = await data.json();
       const worldwidePublicHolidays = res?.map(
         ({ name, date }: { name: string; date: string }) => ({
+          id: uuid(),
           day: date,
           title: name,
+          noDrag: true,
         })
       );
 
@@ -60,13 +64,15 @@ export default function CalendarContextProvider({ children }: Props) {
         selectedDate,
         tasks,
         isFormOpen,
+        selectedTask,
 
         handleSelectMonthYear,
         handleSelectDate,
-        setSelectedDate,
         handleOpenForm,
+        setSelectedDate,
         setTasks,
         setIsFormOpen,
+        setSelectedTask,
       }}
     >
       {children}

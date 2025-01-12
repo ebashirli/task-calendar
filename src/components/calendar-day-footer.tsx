@@ -17,7 +17,7 @@ function CalendarDayFooter({ isActive, day }: Props) {
   return (
     isActive && (
       <StyledCalendarDayFooter>
-        {isFormOpen && <TaskForm day={day} />}
+        {isFormOpen && day && <TaskForm day={day} />}
         <button onClick={handleOpenForm}>Add a task</button>
       </StyledCalendarDayFooter>
     )

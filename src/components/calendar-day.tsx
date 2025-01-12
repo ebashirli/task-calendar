@@ -18,6 +18,7 @@ const StyledCalendarHeader = styled("header", {
 
 const StyledTaskList = styled("main", {
   flexGrow: 1,
+  border: "1px solid #000",
 });
 
 const StyledCalendarSpacer = styled("div", {
@@ -77,7 +78,7 @@ function CalendarDay({ day }: Props) {
             </StyledCalendarHeader>
             <StyledTaskList>
               {tasks.map((task) => (
-                <TaskCard task={task} />
+                <TaskCard key={task.id} task={task} />
               ))}
             </StyledTaskList>
             <CalendarDayFooter day={day} isActive={isActive} />

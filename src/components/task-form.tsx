@@ -1,45 +1,51 @@
-import { useState } from "react";
+import { v4 as uuid } from "uuid";
+import { styled } from "@stitches/react";
 import { useCalendarContext } from "../contexts/calendar-context";
+import { Task } from "../contexts/calendar-context/context";
+import { useState } from "react";
+
+const StyledForm = styled("form", {
+  position: "absolute",
+  display: "flex",
+  flexDirection: "column",
+  gap: ".5rem",
+  left: "50%",
+  bottom: "10%",
+});
 
 type Props = {
-  day: string;
+  task?: Task;
+  day?: string;
 };
-function TaskForm({ day }: Props) {
-  const [title, setTitle] = useState("");
-  const { setTasks, tasks, setIsFormOpen } = useCalendarContext();
+function TaskForm({ task, day }: Props) {
+  const { setTasks, setIsFormOpen, setSelectedTask } = useCalendarContext();
+  const [title, setTitle] = useState(task?.title || "");
+
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setTasks((prevTasks) => {
+      const newTasks = task
+        ? prevTasks.filter(({ id }) => id !== task?.id)
+        : prevTasks;
+      return [
+        ...newTasks,
+        { id: task?.id || uuid(), title, day: task?.day || day! },
+      ];
+    });
+    setIsFormOpen(false);
+    setTitle("");
+    setSelectedTask(null);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTitle(e.target.value);
 
   return (
-    <form
-      action=""
-      style={{
-        position: "absolute",
-        display: "flex",
-        flexDirection: "column",
-        gap: ".5rem",
-        left: "50%",
-        bottom: "10%",
-      }}
-    >
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setTasks((prevTasks) => [
-            ...prevTasks,
-            { id: `${tasks.length + 1}`, title, day },
-          ]);
-          setIsFormOpen(false);
-          setTitle("");
-        }}
-      >
-        Add
-      </button>
-    </form>
+    <StyledForm>
+      <input type="text" value={title} onChange={handleChange} />
+      <button onClick={handleSubmit}>{task ? "Update" : "Add"}</button>
+    </StyledForm>
   );
 }
 

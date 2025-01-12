@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import { format } from "date-fns";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -16,9 +17,9 @@ export const useCalendar = () => {
       if (scrollTop + clientHeight >= scrollHeight - 100) {
         setWeeks((prevWeeks) => {
           const lastDate = new Date(prevWeeks.at(-1)!.days.at(-1)!);
-          const weeks: TWeek[] = Array.from({ length: 3 }).map((_, i) => {
+          const weeks: TWeek[] = Array.from({ length: 3 }).map(() => {
             return {
-              id: `${prevWeeks.length + i}`,
+              id: uuid(),
               days: Array.from({ length: 7 }).map(() => {
                 return format(
                   new Date(lastDate.setDate(lastDate.getDate() + 1)),
@@ -31,7 +32,6 @@ export const useCalendar = () => {
         });
         tbody.scrollTop = scrollTop - 200;
       }
-      // generateWeeks();
     }
   }, []);
 
@@ -61,9 +61,9 @@ export const useCalendar = () => {
     firstDate.setDate(date - farFromToday * 7 + day);
     const weeks: TWeek[] = Array.from({
       length: 30,
-    }).map((_, i) => {
+    }).map(() => {
       return {
-        id: `${i + 1}`,
+        id: uuid(),
         days: Array.from({ length: 7 }).map(() => {
           return format(
             new Date(firstDate.setDate(firstDate.getDate() + 1)),

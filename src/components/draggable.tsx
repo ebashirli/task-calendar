@@ -1,16 +1,16 @@
 import { useDraggable } from "@dnd-kit/core";
 import { ReactNode } from "react";
+import { Task } from "../contexts/calendar-context/context";
 
 type Props = {
-  id: string;
-  day: string;
+  task: Task;
   children: ReactNode;
 };
-function Draggable({ id, day, children }: Props) {
+function Draggable({ task, children }: Props) {
   const { setNodeRef, attributes, listeners, transform } = useDraggable({
-    id,
-    data: { day },
-    disabled: !id,
+    id: task.id,
+    data: { day: task.day },
+    disabled: task.noDrag,
   });
   const style = transform
     ? {
