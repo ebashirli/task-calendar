@@ -6,7 +6,7 @@ const StyledCalendarWeek = styled("tr", {
 });
 
 type Props = {
-  days: number[];
+  days: string[];
 };
 
 function CalendarWeek({ days }: Props) {

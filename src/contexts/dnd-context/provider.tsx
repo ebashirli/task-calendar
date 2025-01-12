@@ -9,14 +9,14 @@ import {
 } from "@dnd-kit/core";
 import { sortableKeyboardCoordinates, arrayMove } from "@dnd-kit/sortable";
 import { ReactNode } from "react";
-import { useAppContext } from "../calendar-context";
+import { useCalendarContext } from "../calendar-context";
 
 type Props = {
   children: ReactNode;
 };
 
 function DndContextProvider({ children }: Props) {
-  const { setTasks } = useAppContext();
+  const { setTasks } = useCalendarContext();
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -42,13 +42,8 @@ function DndContextProvider({ children }: Props) {
     const overId = over?.id as string;
     const overDay = over.data.current?.day;
 
-    console.log(
-      { activeId, activeDay, overId, overDay },
-      activeDay === Number(overId)
-    );
-
     if (active.id !== over.id) {
-      if (activeDay === Number(overId) || activeDay === Number(overDay)) {
+      if (activeDay === overId || activeDay === overDay) {
         setTasks((tasks) => {
           const taskIds = tasks.map(({ id }) => id);
           const oldIndex = taskIds.indexOf(activeId);
@@ -61,7 +56,7 @@ function DndContextProvider({ children }: Props) {
           const task = tasks.find(({ id }) => id === activeId);
           if (!task) return tasks;
           const newTasks = tasks.filter((task) => task.id !== activeId);
-          const day = overDay || Number(overId);
+          const day = overDay || overId;
           return [...newTasks, { ...task, day }];
         });
       }

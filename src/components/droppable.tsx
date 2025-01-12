@@ -4,7 +4,7 @@ import { useDroppable } from "@dnd-kit/core";
 type Props = {
   id: string;
   children: ReactNode;
-  day: number;
+  day: string;
 };
 
 function Droppable({ id, day, children }: Props) {

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useAppContext } from "../contexts/calendar-context";
+import { useCalendarContext } from "../contexts/calendar-context";
 
 type Props = {
-  day: number;
+  day: string;
 };
 function TaskForm({ day }: Props) {
   const [title, setTitle] = useState("");
-  const { setTasks, tasks, setIsFormOpen } = useAppContext();
+  const { setTasks, tasks, setIsFormOpen } = useCalendarContext();
 
   return (
     <form

@@ -1,8 +1,9 @@
+import { format } from "date-fns";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type TWeek = {
   id: string;
-  days: number[];
+  days: string[];
 };
 
 export const useCalendar = () => {
@@ -19,7 +20,10 @@ export const useCalendar = () => {
             return {
               id: `${prevWeeks.length + i}`,
               days: Array.from({ length: 7 }).map(() => {
-                return lastDate.setDate(lastDate.getDate() + 1);
+                return format(
+                  new Date(lastDate.setDate(lastDate.getDate() + 1)),
+                  "yyyy-MM-dd"
+                );
               }),
             };
           });
@@ -46,7 +50,12 @@ export const useCalendar = () => {
   }, []);
 
   function generateWeeks(farFromToday: number = 14) {
-    const firstDate = new Date();
+    const now = new Date();
+    const firstDate = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
     const date = firstDate.getDate();
     const day = firstDate.getDay();
     firstDate.setDate(date - farFromToday * 7 + day);
@@ -56,7 +65,10 @@ export const useCalendar = () => {
       return {
         id: `${i + 1}`,
         days: Array.from({ length: 7 }).map(() => {
-          return firstDate.setDate(firstDate.getDate() + 1);
+          return format(
+            new Date(firstDate.setDate(firstDate.getDate() + 1)),
+            "yyyy-MM-dd"
+          );
         }),
       };
     });

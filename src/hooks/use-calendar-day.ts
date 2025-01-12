@@ -1,11 +1,12 @@
 import { format } from "date-fns";
-import { useAppContext } from "../contexts/calendar-context";
+import { useCalendarContext } from "../contexts/calendar-context";
 
-const useCalendarDay = (day: number) => {
+const useCalendarDay = (day: string) => {
   const dateDate = new Date(day);
   const afterDay = new Date(day);
   afterDay.setDate(afterDay.getDate() + 1);
-  const { selectedDate, setSelectedDate, tasks, isFormOpen } = useAppContext();
+  const { selectedDate, setSelectedDate, tasks, isFormOpen } =
+    useCalendarContext();
 
   const isFirstOrLastDay = dateDate.getDate() === 1 || afterDay.getDate() === 1;
   const label = format(dateDate, isFirstOrLastDay ? "d MMM" : "d");

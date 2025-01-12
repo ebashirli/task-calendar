@@ -53,7 +53,7 @@ const StyledCalendarDay = styled("div", {
 });
 
 type Props = {
-  day: number;
+  day: string;
 };
 
 function CalendarDay({ day }: Props) {

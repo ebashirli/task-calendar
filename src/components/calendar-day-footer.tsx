@@ -1,5 +1,5 @@
 import { styled } from "../../stitches.config";
-import { useAppContext as useCalendarContext } from "../contexts/calendar-context";
+import { useCalendarContext as useCalendarContext } from "../contexts/calendar-context";
 import TaskForm from "./task-form";
 
 const StyledCalendarDayFooter = styled("footer", {
@@ -9,7 +9,7 @@ const StyledCalendarDayFooter = styled("footer", {
 
 type Props = {
   isActive: boolean;
-  day: number;
+  day: string;
 };
 
 function CalendarDayFooter({ isActive, day }: Props) {

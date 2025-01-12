@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { CalendarContext, Task } from "./context";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 export default function CalendarContextProvider({ children }: Props) {
   const [selectedMonthYear, setSelectedMonthYear] = useState(new Date());
   const [currDate, setCurrDate] = useState<Date | null>(null);
-  const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const currYear = selectedMonthYear.getFullYear();
   const currMonth = selectedMonthYear.getMonth();
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -32,6 +32,24 @@ export default function CalendarContextProvider({ children }: Props) {
     e.stopPropagation();
     setIsFormOpen(true);
   };
+
+  useEffect(() => {
+    async function getWorldwidePublicHolidays() {
+      const data = await fetch(
+        "https://date.nager.at/api/v3/NextPublicHolidaysWorldwide"
+      );
+      const res = await data.json();
+      const worldwidePublicHolidays = res?.map(
+        ({ name, date }: { name: string; date: string }) => ({
+          day: date,
+          title: name,
+        })
+      );
+
+      setTasks((tasks) => [...tasks, ...worldwidePublicHolidays]);
+    }
+    getWorldwidePublicHolidays();
+  }, []);
 
   return (
     <CalendarContext.Provider

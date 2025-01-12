@@ -3,13 +3,14 @@ import { ReactNode } from "react";
 
 type Props = {
   id: string;
-  day: number;
+  day: string;
   children: ReactNode;
 };
 function Draggable({ id, day, children }: Props) {
   const { setNodeRef, attributes, listeners, transform } = useDraggable({
     id,
     data: { day },
+    disabled: !id,
   });
   const style = transform
     ? {
