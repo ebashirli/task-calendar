@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { useAppContext } from "../contexts/app-context";
+import { useAppContext } from "../contexts/calendar-context";
 import { monthsObj } from "../utils/constants";
 
 const months = monthsObj.mmm;

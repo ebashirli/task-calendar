@@ -1,7 +1,7 @@
 import { styled } from "../../stitches.config";
-import { useAppContext } from "../contexts/app-context";
+import { useAppContext } from "../contexts/calendar-context";
 import { DateDetail } from "../hooks/use-dates";
-import { Task } from "../contexts/app-context/context";
+import { Task } from "../contexts/calendar-context/context";
 import TaskList from "./task-list";
 import Droppable from "./droppable";
 

@@ -2,8 +2,8 @@ import { closestCorners, DndContext, DragEndEvent } from "@dnd-kit/core";
 import { styled } from "../../stitches.config";
 import { useDates } from "../hooks/use-dates";
 import Date from "./date";
-import { useAppContext } from "../contexts/app-context";
-import { Task } from "../contexts/app-context/context";
+import { useAppContext } from "../contexts/calendar-context";
+// import { Task } from "../contexts/app-context/context";
 import { arrayMove } from "@dnd-kit/sortable";
 
 const StyledDates = styled("div", {
@@ -19,11 +19,9 @@ function Dates() {
   const { tasks, setTasks } = useAppContext();
 
   function handleDragEnd({ active, over }: DragEndEvent) {
-    console.log({ active, over });
-
     if (!over) return;
     const taskId = active.id as string;
-    const newDate = over.id as Task["date"];
+    // const newDate = over.id as Task["date"];
     const curentDate = over.data.current?.date;
 
     if (curentDate) {

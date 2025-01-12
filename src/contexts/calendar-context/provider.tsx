@@ -1,25 +1,17 @@
 import { ReactNode, useCallback, useState } from "react";
-import { AppContext, Task } from "./context";
+import { CalendarContext, Task } from "./context";
 
 type Props = {
   children: ReactNode;
 };
 
-export default function AppContextProvider({ children }: Props) {
+export default function CalendarContextProvider({ children }: Props) {
   const [selectedMonthYear, setSelectedMonthYear] = useState(new Date());
   const [currDate, setCurrDate] = useState<Date | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedDate, setSelectedDate] = useState<number | null>(null);
   const currYear = selectedMonthYear.getFullYear();
   const currMonth = selectedMonthYear.getMonth();
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: "1", title: "Task 01", date: "01-01-2025" },
-    { id: "7", title: "Task 07", date: "01-01-2025" },
-    { id: "8", title: "Task 08", date: "01-01-2025" },
-    { id: "3", title: "Task 03", date: "01-03-2025" },
-    { id: "4", title: "Task 04", date: "01-04-2025" },
-    { id: "5", title: "Task 05", date: "01-05-2025" },
-    { id: "6", title: "Task 06", date: "01-06-2025" },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const handleSelectMonthYear = useCallback((place: 0 | 1 | -1) => {
     setSelectedMonthYear((prev) => {
@@ -36,21 +28,21 @@ export default function AppContextProvider({ children }: Props) {
   }, []);
 
   return (
-    <AppContext.Provider
+    <CalendarContext.Provider
       value={{
         currYear,
         currMonth,
         currDate,
-        selectedIndex,
+        selectedDate,
         tasks,
 
         handleSelectMonthYear,
         handleSelectDate,
-        setSelectedIndex,
+        setSelectedDate,
         setTasks,
       }}
     >
       {children}
-    </AppContext.Provider>
+    </CalendarContext.Provider>
   );
 }

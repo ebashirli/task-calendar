@@ -1,4 +1,4 @@
-import { Task } from "../contexts/app-context/context";
+import { Task } from "../contexts/calendar-context/context";
 import TaskCard from "./task-card";
 import Draggable from "./draggable";
 import Droppable from "./droppable";

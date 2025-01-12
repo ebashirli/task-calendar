@@ -4,15 +4,15 @@ import { Helmet } from "react-helmet";
 import { getCssText } from "../stitches.config.ts";
 import "./index.css";
 import App from "./App.tsx";
-import AppContextProvider from "./contexts/app-context";
+import CalendarContextProvider from "./contexts/calendar-context/index.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Helmet>
       <style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
     </Helmet>
-    <AppContextProvider>
+    <CalendarContextProvider>
       <App />
-    </AppContextProvider>
+    </CalendarContextProvider>
   </StrictMode>
 );

@@ -4,24 +4,13 @@ import { useDroppable } from "@dnd-kit/core";
 type Props = {
   id: string;
   children: ReactNode;
-  date?: string;
+  day: number;
 };
 
-function Droppable({ id, date, children }: Props) {
-  const { setNodeRef } = useDroppable({ id, data: { current: { date } } });
+function Droppable({ id, day, children }: Props) {
+  const { setNodeRef } = useDroppable({ id, data: { day } });
   return (
-    <div
-      style={{
-        width: "100%",
-
-        ...(date && {
-          border: "1px solid #000",
-          height: "100%",
-          flexGrow: 1,
-        }),
-      }}
-      ref={setNodeRef}
-    >
+    <div style={{ width: "100%" }} ref={setNodeRef}>
       {children}
     </div>
   );

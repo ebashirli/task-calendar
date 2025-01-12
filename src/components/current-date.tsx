@@ -1,5 +1,5 @@
 import { styled } from "../../stitches.config";
-import { useAppContext } from "../contexts/app-context";
+import { useAppContext } from "../contexts/calendar-context";
 import { monthsObj } from "../utils/constants";
 
 const StyledCurrentDate = styled("div", {
