@@ -38,7 +38,7 @@ export const {
     lg: "(max-width: 1280px)",
   },
   utils: {
-    marginX: (value) => ({ marginLeft: value, marginRight: value }),
+    marginX: (value: number) => ({ marginLeft: value, marginRight: value }),
   },
 });
 

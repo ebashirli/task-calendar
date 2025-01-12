@@ -1,16 +1,23 @@
-import { format } from "date-fns";
 import { styled } from "../../stitches.config";
-import { useAppContext } from "../contexts/calendar-context";
-import { useState } from "react";
-import TaskForm from "./task-form";
-import { SortableItem } from "./sortable-item";
 import Droppable from "./droppable";
-import Draggable from "./draggable";
+import useCalendarDay from "../hooks/use-calendar-day";
+import TaskCard from "./task-card";
+import CalendarDayFooter from "./calendar-day-footer";
 
 const StyledCalendarWrapper = styled("td", {
   display: "inline-block",
   width: `${100 / 7}%`,
   position: "relative",
+});
+
+const StyledCalendarHeader = styled("header", {
+  display: "flex",
+  justifyContent: "space-between",
+  width: "100%",
+});
+
+const StyledTaskList = styled("main", {
+  flexGrow: 1,
 });
 
 const StyledCalendarSpacer = styled("div", {
@@ -50,69 +57,30 @@ type Props = {
 };
 
 function CalendarDay({ day }: Props) {
-  const dateDate = new Date(day);
-  const afterDay = new Date(day);
-  afterDay.setDate(afterDay.getDate() + 1);
-  const { selectedDate, setSelectedDate, tasks } = useAppContext();
-  const [isFormActive, setIsFormActive] = useState(false);
+  const {
+    label,
+    isActive,
+    tasks,
 
-  const isFirstOrLastDay = dateDate.getDate() === 1 || afterDay.getDate() === 1;
-  const label = format(dateDate, isFirstOrLastDay ? "d MMM" : "d");
-  const isActive = selectedDate === day;
-  const handleClick = () => setSelectedDate(day);
+    handleClick,
+    handleClose,
+  } = useCalendarDay(day);
 
   return (
     <StyledCalendarWrapper>
       <StyledCalendarSpacer>
         <Droppable id={`${day}`} day={day}>
           <StyledCalendarDay active={isActive} onClick={handleClick}>
-            <header
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
-            >
+            <StyledCalendarHeader>
               {label}
-              {isActive && (
-                <span
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedDate(null);
-                  }}
-                >
-                  x
-                </span>
-              )}
-            </header>
-            <main style={{ flexGrow: 1 }}>
-              {tasks
-                .filter((task) => task.date === day)
-                .map(({ id, title }) => {
-                  return (
-                    <Draggable key={id} id={id} day={day}>
-                      <SortableItem id={id} day={day}>
-                        <li style={{ border: "1px solid #000" }}>{title}</li>
-                      </SortableItem>
-                    </Draggable>
-                  );
-                })}
-            </main>
-            {isActive && (
-              <footer style={{ display: "flex", justifyContent: "center" }}>
-                {isFormActive && (
-                  <TaskForm date={day} setIsFormActive={setIsFormActive} />
-                )}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsFormActive(true);
-                  }}
-                >
-                  Add a task
-                </button>
-              </footer>
-            )}
+              {isActive && <span onClick={handleClose}>x</span>}
+            </StyledCalendarHeader>
+            <StyledTaskList>
+              {tasks.map((task) => (
+                <TaskCard task={task} />
+              ))}
+            </StyledTaskList>
+            <CalendarDayFooter day={day} isActive={isActive} />
           </StyledCalendarDay>
         </Droppable>
       </StyledCalendarSpacer>

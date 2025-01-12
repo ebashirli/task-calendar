@@ -61,8 +61,8 @@ function DndContextProvider({ children }: Props) {
           const task = tasks.find(({ id }) => id === activeId);
           if (!task) return tasks;
           const newTasks = tasks.filter((task) => task.id !== activeId);
-          const date = overDay || Number(overId);
-          return [...newTasks, { ...task, date }];
+          const day = overDay || Number(overId);
+          return [...newTasks, { ...task, day }];
         });
       }
     }

@@ -12,6 +12,7 @@ export default function CalendarContextProvider({ children }: Props) {
   const currYear = selectedMonthYear.getFullYear();
   const currMonth = selectedMonthYear.getMonth();
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const handleSelectMonthYear = useCallback((place: 0 | 1 | -1) => {
     setSelectedMonthYear((prev) => {
@@ -22,10 +23,15 @@ export default function CalendarContextProvider({ children }: Props) {
   }, []);
 
   const handleSelectDate = useCallback((date?: Date) => {
-    setCurrDate((prev) => {
-      return !date || prev === date ? null : date;
-    });
+    setCurrDate((prev) => (!date || prev === date ? null : date));
   }, []);
+
+  const handleOpenForm = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    setIsFormOpen(true);
+  };
 
   return (
     <CalendarContext.Provider
@@ -35,11 +41,14 @@ export default function CalendarContextProvider({ children }: Props) {
         currDate,
         selectedDate,
         tasks,
+        isFormOpen,
 
         handleSelectMonthYear,
         handleSelectDate,
         setSelectedDate,
+        handleOpenForm,
         setTasks,
+        setIsFormOpen,
       }}
     >
       {children}

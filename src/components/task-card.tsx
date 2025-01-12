@@ -1,8 +1,7 @@
 import { styled } from "@stitches/react";
-
-type Props = {
-  title: string;
-};
+import Draggable from "./draggable";
+import { SortableItem } from "./sortable-item";
+import { Task } from "../contexts/calendar-context/context";
 
 const StyledTaskCard = styled("div", {
   "&:hover": {
@@ -11,8 +10,20 @@ const StyledTaskCard = styled("div", {
   },
 });
 
-function TaskCard({ title }: Props) {
-  return <StyledTaskCard>{title}</StyledTaskCard>;
+type Props = {
+  task: Task;
+};
+
+function TaskCard({ task: { id, day, title } }: Props) {
+  return (
+    <StyledTaskCard>
+      <Draggable id={id} day={day}>
+        <SortableItem id={id} day={day}>
+          <li style={{ border: "1px solid #000" }}>{title}</li>
+        </SortableItem>
+      </Draggable>
+    </StyledTaskCard>
+  );
 }
 
 export default TaskCard;

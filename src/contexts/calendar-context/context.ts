@@ -2,9 +2,8 @@ import { createContext } from "react";
 
 export type Task = {
   id: string;
-  date: number;
+  day: number;
   title: string;
-  time?: string;
 };
 
 type TCalendarContext = {
@@ -13,11 +12,14 @@ type TCalendarContext = {
   currDate: Date | null;
   selectedDate: number | null;
   tasks: Task[];
+  isFormOpen: boolean;
 
   handleSelectMonthYear: (place: 0 | 1 | -1) => void;
   handleSelectDate: (date?: Date) => void;
   setSelectedDate: React.Dispatch<React.SetStateAction<number | null>>;
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleOpenForm: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 export const CalendarContext = createContext<TCalendarContext>({
@@ -26,9 +28,12 @@ export const CalendarContext = createContext<TCalendarContext>({
   currDate: null,
   selectedDate: null,
   tasks: [],
+  isFormOpen: false,
 
   handleSelectMonthYear: () => {},
   handleSelectDate: () => {},
   setSelectedDate: () => {},
   setTasks: () => {},
+  setIsFormOpen: () => {},
+  handleOpenForm: () => {},
 });

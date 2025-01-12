@@ -2,12 +2,11 @@ import { useState } from "react";
 import { useAppContext } from "../contexts/calendar-context";
 
 type Props = {
-  setIsFormActive: React.Dispatch<React.SetStateAction<boolean>>;
-  date: number;
+  day: number;
 };
-function TaskForm({ setIsFormActive, date }: Props) {
+function TaskForm({ day }: Props) {
   const [title, setTitle] = useState("");
-  const { setTasks, tasks } = useAppContext();
+  const { setTasks, tasks, setIsFormOpen } = useAppContext();
 
   return (
     <form
@@ -32,9 +31,9 @@ function TaskForm({ setIsFormActive, date }: Props) {
           e.stopPropagation();
           setTasks((prevTasks) => [
             ...prevTasks,
-            { id: `${tasks.length + 1}`, title, date },
+            { id: `${tasks.length + 1}`, title, day },
           ]);
-          setIsFormActive(false);
+          setIsFormOpen(false);
           setTitle("");
         }}
       >
