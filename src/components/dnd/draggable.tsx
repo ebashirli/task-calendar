@@ -1,12 +1,13 @@
 import { useDraggable } from "@dnd-kit/core";
 import { ReactNode } from "react";
-import { Task } from "../contexts/calendar-context/context";
+import { Task } from "../../contexts/calendar-context/context";
 
 type Props = {
   task: Task;
   children: ReactNode;
 };
-function Draggable({ task, children }: Props) {
+
+export function Draggable({ task, children }: Props) {
   const { setNodeRef, attributes, listeners, transform } = useDraggable({
     id: task.id,
     data: { day: task.day },
@@ -23,5 +24,3 @@ function Draggable({ task, children }: Props) {
     </div>
   );
 }
-
-export default Draggable;

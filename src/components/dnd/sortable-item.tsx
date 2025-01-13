@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { ReactNode } from "react";
-import { Task } from "../contexts/calendar-context/context";
+import { Task } from "../../contexts/calendar-context/context";
 
 type Props = {
   task: Task;

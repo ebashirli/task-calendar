@@ -1,5 +1,5 @@
 import { styled } from "../../stitches.config";
-import Droppable from "./droppable";
+import { Droppable } from "./dnd";
 import useCalendarDay from "../hooks/use-calendar-day";
 import TaskCard from "./task-card";
 import CalendarDayFooter from "./calendar-day-footer";

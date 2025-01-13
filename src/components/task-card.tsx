@@ -1,9 +1,8 @@
 import { styled } from "@stitches/react";
-import Draggable from "./draggable";
-import { SortableItem } from "./sortable-item";
 import { Task } from "../contexts/calendar-context/context";
 import TaskForm from "./task-form";
 import { useCalendarContext } from "../contexts/calendar-context";
+import { Draggable, SortableItem } from "./dnd";
 
 const StyledTaskCard = styled("div", {
   "&:hover": {
