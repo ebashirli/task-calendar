@@ -59,6 +59,8 @@ export default function CalendarContextProvider({ children }: Props) {
       setTasks([...worldwidePublicHolidays]);
     }
     getWorldwidePublicHolidays();
+
+    setCurrDate(new Date());
   }, []);
 
   return (

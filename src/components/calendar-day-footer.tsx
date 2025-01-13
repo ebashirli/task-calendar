@@ -18,7 +18,18 @@ function CalendarDayFooter({ isActive, day }: Props) {
     isActive && (
       <StyledCalendarDayFooter>
         {isFormOpen && day && <TaskForm day={day} />}
-        <button onClick={handleOpenForm}>Add a task</button>
+        <button
+          style={{
+            background: "#a1bdd914",
+            color: "#b6c2cf",
+            padding: ".5rem ",
+            borderRadius: "3px",
+            width: "100%",
+          }}
+          onClick={handleOpenForm}
+        >
+          Add a task
+        </button>
       </StyledCalendarDayFooter>
     )
   );

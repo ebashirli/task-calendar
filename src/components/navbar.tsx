@@ -6,6 +6,8 @@ const StyledNavbar = styled("td", {
   // gridTemplateColumns: "1fr 10fr 1fr",
   justifyContent: "space-between",
   alignItems: "center",
+  border: "none",
+  marginBottom: "2rem",
 });
 
 import { useCalendarContext } from "../contexts/calendar-context";

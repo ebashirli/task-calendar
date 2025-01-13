@@ -12,9 +12,7 @@ const StyledTaskCard = styled("div", {
   position: "relative",
 });
 
-const StyledCardContent = styled("div", {
-  border: "1px solid #000",
-});
+const StyledCardContent = styled("div", {});
 
 type Props = {
   task: Task;

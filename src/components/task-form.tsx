@@ -11,6 +11,8 @@ const StyledForm = styled("form", {
   gap: ".5rem",
   left: "50%",
   bottom: "10%",
+  background: "#282e32",
+  border: "1px solid ",
 });
 
 type Props = {

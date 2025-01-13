@@ -10,7 +10,20 @@ const useCalendarDay = (day: string) => {
     setSelectedDate,
     filteredTasks: tasks,
     isFormOpen,
+    currDate,
   } = useCalendarContext();
+  const dayDate = new Date(day);
+  console.log({ currDate, day });
+
+  const isCurrent =
+    dayDate.getMonth() === currDate?.getMonth() &&
+    dayDate.getFullYear() === currDate?.getFullYear();
+  const today = new Date();
+
+  const isToday =
+    dayDate.getMonth() === today?.getMonth() &&
+    dayDate.getFullYear() === today?.getFullYear() &&
+    dayDate.getDate() === today?.getDate();
 
   const isFirstOrLastDay = dateDate.getDate() === 1 || afterDay.getDate() === 1;
   const label = format(dateDate, isFirstOrLastDay ? "d MMM" : "d");
@@ -26,6 +39,8 @@ const useCalendarDay = (day: string) => {
     label,
     isActive,
     tasks: tasks.filter((task) => task.day === day),
+    isCurrent,
+    isToday,
 
     handleClick,
     handleClose,
