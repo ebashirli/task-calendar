@@ -1,6 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { format } from "date-fns";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useCalendarContext } from "../contexts/calendar-context";
 
 type TWeek = {
   id: string;
@@ -10,47 +11,21 @@ type TWeek = {
 export const useCalendar = () => {
   const [weeks, setWeeks] = useState<TWeek[]>([]);
   const tbodyRef = useRef<HTMLTableSectionElement | null>(null);
-  const handleScroll = useCallback(() => {
-    const tbody = tbodyRef.current;
-    if (tbody) {
-      const { scrollTop, scrollHeight, clientHeight } = tbody;
-      if (scrollTop + clientHeight >= scrollHeight - 100) {
-        setWeeks((prevWeeks) => {
-          const lastDate = new Date(prevWeeks.at(-1)!.days.at(-1)!);
-          const weeks: TWeek[] = Array.from({ length: 3 }).map(() => {
-            return {
-              id: uuid(),
-              days: Array.from({ length: 7 }).map(() => {
-                return format(
-                  new Date(lastDate.setDate(lastDate.getDate() + 1)),
-                  "yyyy-MM-dd"
-                );
-              }),
-            };
-          });
-          return [...prevWeeks.slice(3), ...weeks];
-        });
-        tbody.scrollTop = scrollTop - 200;
-      }
-    }
-  }, []);
+  const { currDate } = useCalendarContext();
 
   useEffect(() => {
-    const tbody = tbodyRef.current;
-    if (tbody) {
-      const {
-        // scrollTop,
-        scrollHeight,
-        // clientHeight
-      } = tbody;
-      const halfScrollHeight = scrollHeight / 2.506;
-      tbody.scrollTop = halfScrollHeight;
-    }
-    generateWeeks();
-  }, []);
+    console.log({ currDate });
 
-  function generateWeeks(farFromToday: number = 14) {
-    const now = new Date();
+    if (tbodyRef.current) {
+      const { scrollHeight } = tbodyRef.current;
+      const halfScrollHeight = scrollHeight / 2.506;
+      tbodyRef.current.scrollTop = halfScrollHeight;
+    }
+    generateWeeks(currDate);
+  }, [currDate]);
+
+  function generateWeeks(currDate: Date | null) {
+    const now = currDate ? new Date(currDate) : new Date();
     const firstDate = new Date(
       now.getFullYear(),
       now.getMonth(),
@@ -58,9 +33,9 @@ export const useCalendar = () => {
     );
     const date = firstDate.getDate();
     const day = firstDate.getDay();
-    firstDate.setDate(date - farFromToday * 7 + day);
+    firstDate.setDate(date - 7 * 7 + day);
     const weeks: TWeek[] = Array.from({
-      length: 30,
+      length: 15,
     }).map(() => {
       return {
         id: uuid(),
@@ -75,9 +50,5 @@ export const useCalendar = () => {
     setWeeks(weeks);
   }
 
-  return {
-    handleScroll,
-    weeks,
-    tbodyRef,
-  };
+  return { weeks, tbodyRef };
 };

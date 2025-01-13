@@ -35,7 +35,7 @@ const StyledCalendarHeader = styled("th", {
 });
 
 function Calendar() {
-  const { weeks } = useCalendar();
+  const { weeks, tbodyRef } = useCalendar();
 
   return (
     <StyledCalendar>
@@ -50,7 +50,7 @@ function Calendar() {
             ))}
           </StyledCalendarHeadRow>
         </StyledCalendarHead>
-        <StyledCalendarBody>
+        <StyledCalendarBody ref={tbodyRef}>
           {weeks.map(({ id, days }) => (
             <CalendarWeek days={days} key={id} />
           ))}

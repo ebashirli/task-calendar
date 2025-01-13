@@ -45,8 +45,15 @@ function TaskForm({ task, day }: Props) {
 
   return (
     <StyledForm>
-      <input type="text" value={title} onChange={handleChange} />
-      <button onClick={handleSubmit}>{task ? "Update" : "Add"}</button>
+      <input
+        type="text"
+        value={title}
+        onChange={handleChange}
+        disabled={task?.noDrag}
+      />
+      <button disabled={task?.noDrag} onClick={handleSubmit}>
+        {task ? "Update" : "Add"}
+      </button>
     </StyledForm>
   );
 }

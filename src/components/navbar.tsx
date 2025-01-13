@@ -1,7 +1,7 @@
 import { styled } from "../../stitches.config";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
-const StyledNavbar = styled("nav", {
+const StyledNavbar = styled("td", {
   display: "flex",
   // gridTemplateColumns: "1fr 10fr 1fr",
   justifyContent: "space-between",

@@ -17,18 +17,22 @@ export default function CalendarContextProvider({ children }: Props) {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
-  const handleSelectMonthYear = useCallback((place: 0 | 1 | -1) => {
-    return setSelectedMonthYear((prev) => {
-      if (!place) return new Date();
-      const month = prev.getMonth() + place;
-      const year = prev.getFullYear();
-      return new Date(year, month);
-    });
-  }, []);
-
   const handleSelectDate = useCallback((date?: Date) => {
     setCurrDate((prev) => (!date || prev === date ? null : date));
   }, []);
+
+  const handleSelectMonthYear = useCallback(
+    (place: 0 | 1 | -1) => {
+      return setSelectedMonthYear((prev) => {
+        if (!place) return new Date();
+        const month = prev.getMonth() + place;
+        const year = prev.getFullYear();
+        handleSelectDate(new Date(year, month));
+        return new Date(year, month);
+      });
+    },
+    [handleSelectDate]
+  );
 
   const handleOpenForm = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -38,8 +42,6 @@ export default function CalendarContextProvider({ children }: Props) {
   };
 
   useEffect(() => {
-    console.log("helooooo");
-
     async function getWorldwidePublicHolidays() {
       const data = await fetch(
         "https://date.nager.at/api/v3/NextPublicHolidaysWorldwide"
