@@ -13,11 +13,13 @@ export default function CalendarContextProvider({ children }: Props) {
   const currYear = selectedMonthYear.getFullYear();
   const currMonth = selectedMonthYear.getMonth();
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>([...tasks]);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const handleSelectMonthYear = useCallback((place: 0 | 1 | -1) => {
-    setSelectedMonthYear((prev) => {
+    return setSelectedMonthYear((prev) => {
+      if (!place) return new Date();
       const month = prev.getMonth() + place;
       const year = prev.getFullYear();
       return new Date(year, month);
@@ -36,6 +38,8 @@ export default function CalendarContextProvider({ children }: Props) {
   };
 
   useEffect(() => {
+    console.log("helooooo");
+
     async function getWorldwidePublicHolidays() {
       const data = await fetch(
         "https://date.nager.at/api/v3/NextPublicHolidaysWorldwide"
@@ -50,7 +54,7 @@ export default function CalendarContextProvider({ children }: Props) {
         })
       );
 
-      setTasks((tasks) => [...tasks, ...worldwidePublicHolidays]);
+      setTasks([...worldwidePublicHolidays]);
     }
     getWorldwidePublicHolidays();
   }, []);
@@ -63,6 +67,7 @@ export default function CalendarContextProvider({ children }: Props) {
         currDate,
         selectedDate,
         tasks,
+        filteredTasks,
         isFormOpen,
         selectedTask,
 
@@ -71,6 +76,7 @@ export default function CalendarContextProvider({ children }: Props) {
         handleOpenForm,
         setSelectedDate,
         setTasks,
+        setFilteredTasks,
         setIsFormOpen,
         setSelectedTask,
       }}

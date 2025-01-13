@@ -12,11 +12,9 @@ type Props = {
 function CalendarWeek({ days }: Props) {
   return (
     <StyledCalendarWeek>
-      {days.map((day) => {
-        console.log({ day });
-
-        return <CalendarDay key={day} day={day} />;
-      })}
+      {days.map((day) => (
+        <CalendarDay key={day} day={day} />
+      ))}
     </StyledCalendarWeek>
   );
 }

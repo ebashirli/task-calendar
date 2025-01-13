@@ -13,6 +13,7 @@ type TCalendarContext = {
   currDate: Date | null;
   selectedDate: string | null;
   tasks: Task[];
+  filteredTasks: Task[];
   isFormOpen: boolean;
   selectedTask: Task | null;
 
@@ -21,6 +22,7 @@ type TCalendarContext = {
   handleOpenForm: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   setSelectedDate: React.Dispatch<React.SetStateAction<string | null>>;
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  setFilteredTasks: React.Dispatch<React.SetStateAction<Task[]>>;
   setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedTask: React.Dispatch<React.SetStateAction<Task | null>>;
 };
@@ -31,6 +33,7 @@ export const CalendarContext = createContext<TCalendarContext>({
   currDate: null,
   selectedDate: null,
   tasks: [],
+  filteredTasks: [],
   isFormOpen: false,
   selectedTask: null,
 
@@ -39,6 +42,7 @@ export const CalendarContext = createContext<TCalendarContext>({
   handleOpenForm: () => {},
   setSelectedDate: () => {},
   setTasks: () => {},
+  setFilteredTasks: () => {},
   setIsFormOpen: () => {},
   setSelectedTask: () => {},
 });

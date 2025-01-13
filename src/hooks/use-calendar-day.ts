@@ -5,8 +5,12 @@ const useCalendarDay = (day: string) => {
   const dateDate = new Date(day);
   const afterDay = new Date(day);
   afterDay.setDate(afterDay.getDate() + 1);
-  const { selectedDate, setSelectedDate, tasks, isFormOpen } =
-    useCalendarContext();
+  const {
+    selectedDate,
+    setSelectedDate,
+    filteredTasks: tasks,
+    isFormOpen,
+  } = useCalendarContext();
 
   const isFirstOrLastDay = dateDate.getDate() === 1 || afterDay.getDate() === 1;
   const label = format(dateDate, isFirstOrLastDay ? "d MMM" : "d");

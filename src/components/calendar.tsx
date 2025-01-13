@@ -1,6 +1,7 @@
 import { styled } from "../../stitches.config";
 import { useCalendar } from "../hooks/use-calendar";
 import CalendarWeek from "./calendar-week";
+import Navbar from "./navbar";
 
 const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
@@ -40,6 +41,9 @@ function Calendar() {
     <StyledCalendar>
       <StyledCalendarTable>
         <StyledCalendarHead>
+          <StyledCalendarHeadRow>
+            <Navbar />
+          </StyledCalendarHeadRow>
           <StyledCalendarHeadRow>
             {weekdays.map((wd) => (
               <StyledCalendarHeader key={wd}>{wd}</StyledCalendarHeader>
