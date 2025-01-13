@@ -19,6 +19,10 @@ const StyledCalendarHeader = styled("header", {
 const StyledTaskList = styled("main", {
   flexGrow: 1,
   border: "1px solid #000",
+  height: "60%",
+  overflow: "scroll",
+  display: "grid",
+  gap: ".5rem",
 });
 
 const StyledCalendarSpacer = styled("div", {

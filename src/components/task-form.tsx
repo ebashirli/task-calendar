@@ -24,6 +24,8 @@ function TaskForm({ task, day }: Props) {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!title) return;
     setTasks((prevTasks) => {
       const newTasks = task
         ? prevTasks.filter(({ id }) => id !== task?.id)
