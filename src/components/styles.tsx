@@ -5,11 +5,19 @@ export const Wrapper = styled("div", {
 });
 export const Header = styled("header", {});
 export const CurrentDate = styled("p", {});
-export const Icons = styled("div", {});
+export const Icons = styled("div", {
+  display: "flex",
+  gap: "1rem",
+});
 export const MaterialSymbolsRounded = styled("span", {});
 export const Calendar = styled("div", {});
 export const Weeks = styled("ul", {});
-export const Button = styled("button", {});
+export const Button = styled("button", {
+  padding: "1rem",
+  borderRadius: ".5rem",
+  backgroundColor: "#091e42ff",
+  color: "#fff",
+});
 
 export const StyledCalendarWrapper = styled("td", {
   display: "inline-block",
