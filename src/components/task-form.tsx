@@ -12,6 +12,18 @@ const StyledForm = styled("form", {
   left: "50%",
   bottom: "10%",
   background: "#282e32",
+
+  variants: {
+    edit: {
+      true: {
+        left: 0,
+        bottom: "-150%",
+      },
+    },
+  },
+  defaultVariants: {
+    edit: false,
+  },
 });
 
 type Props = {
@@ -45,7 +57,7 @@ function TaskForm({ task, day }: Props) {
     setTitle(e.target.value);
 
   return (
-    <StyledForm>
+    <StyledForm edit={!!task}>
       <input
         type="text"
         value={title}
