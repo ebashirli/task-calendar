@@ -13,7 +13,7 @@ import {
 const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 function Calendar() {
-  const { weeks, tbodyRef } = useCalendar();
+  const { weeks } = useCalendar();
 
   return (
     <StyledCalendar>
@@ -28,7 +28,7 @@ function Calendar() {
             ))}
           </StyledCalendarHeadRow>
         </StyledCalendarHead>
-        <StyledCalendarBody ref={tbodyRef}>
+        <StyledCalendarBody>
           {weeks.map(({ id, days }) => (
             <CalendarWeek days={days} key={id} />
           ))}

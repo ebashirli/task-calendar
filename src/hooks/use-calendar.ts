@@ -14,8 +14,6 @@ export const useCalendar = () => {
   const { currDate } = useCalendarContext();
 
   useEffect(() => {
-    console.log({ currDate });
-
     if (tbodyRef.current) {
       const { scrollHeight } = tbodyRef.current;
       const halfScrollHeight = scrollHeight / 2.506;
@@ -26,27 +24,21 @@ export const useCalendar = () => {
 
   function generateWeeks(currDate: Date | null) {
     const now = currDate ? new Date(currDate) : new Date();
-    const firstDate = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate()
-    );
+    const firstDate = new Date(now.getFullYear(), now.getMonth(), 1);
     const date = firstDate.getDate();
     const day = firstDate.getDay();
-    firstDate.setDate(date - 7 * 7 + day);
+    firstDate.setDate(date - day);
     const weeks: TWeek[] = Array.from({
-      length: 15,
-    }).map(() => {
-      return {
-        id: uuid(),
-        days: Array.from({ length: 7 }).map(() => {
-          return format(
-            new Date(firstDate.setDate(firstDate.getDate() + 1)),
-            "yyyy-MM-dd"
-          );
-        }),
-      };
-    });
+      length: 6,
+    }).map(() => ({
+      id: uuid(),
+      days: Array.from({ length: 7 }).map(() => {
+        return format(
+          new Date(firstDate.setDate(firstDate.getDate() + 1)),
+          "yyyy-MM-dd"
+        );
+      }),
+    }));
     setWeeks(weeks);
   }
 

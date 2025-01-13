@@ -85,6 +85,7 @@ export const StyledCalendarDay = styled("div", {
 export const StyledCalendar = styled("main", {
   height: "100%",
   padding: "51px",
+  paddingInline: "280px",
   background: "#1d2125",
   color: "#b6c2cf",
 });
@@ -99,7 +100,7 @@ export const StyledCalendarBody = styled("tbody", {
   display: "block",
   height: "100%",
   overflowY: "scroll",
-  paddingBottom: "20px",
+  paddingBottom: "100px",
 });
 
 export const StyledCalendarHead = styled("thead", {
