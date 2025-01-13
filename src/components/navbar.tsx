@@ -24,9 +24,15 @@ function Navbar() {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    setFilteredTasks(
-      tasks.filter(({ title }) => title.toLowerCase().includes(query))
-    );
+    const handler = setTimeout(() => {
+      setFilteredTasks(
+        tasks.filter(({ title }) =>
+          title.toLowerCase().includes(query.toLowerCase())
+        )
+      );
+    }, 500);
+
+    return () => clearTimeout(handler);
   }, [query, setFilteredTasks, tasks]);
 
   return (
